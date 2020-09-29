@@ -3,18 +3,19 @@
 # a0 is length of first link
 # a1 is length of second link
 
-from sympy import Point, Polygon
+from sympy import Point, Polygon, plot_implicit
 import math
 import matplotlib.pyplot as plt
 from tqdm import tqdm
+import numpy as np
 
 a0=1
 a1=1
 
 # obstacles=(Polygon((0.25, 0.25), (0, 0.75), (-0.25, 0.25)),)
 
-obstacles=(Polygon((-0.25, 1.1), (-0.25, 2), (0.25, 2), (0.25, 1.1)),
-           Polygon((-2, -2), (-2, -1.8), (2, -1.8), (2,-2)))
+# obstacles=(Polygon((-0.25, 1.1), (-0.25, 2), (0.25, 2), (0.25, 1.1)),
+#            Polygon((-2, -2), (-2, -1.8), (2, -1.8), (2,-2)))
 
 # obstacles=(Polygon((-0.25, 1.1), (-0.25, 2), (0.25, 2), (0.25, 1.1)),
 #            Polygon((-2, -0.5), (-2, -0.3), (2, -0.3), (2,-0.5)))
@@ -38,16 +39,25 @@ for i in range(noofobstacles):
 print(v)
 inside=[]
 obstacles=[]
+coor=[]
+ax=plt.subplot(1,2,1)
 for i in range(noofobstacles):
     inside=[]
+    coor=[]
     for j in range(vertex):
         inside.append((v[i][j][0],v[i][j][1]))
+        coor.append((v[i][j][0],v[i][j][1]))
         pass
     poly=Polygon(*inside)
     obstacles.append(poly)
+    coor=np.transpose(coor)
+    ax.fill(coor[0],coor[1])
     pass
 obstacles=tuple(obstacles)
+
 print(obstacles)
+
+ay=plt.subplot(1,2,2)
 p0=(0,0)
 m1=20
 m2=20
@@ -66,7 +76,7 @@ for theta1 in tqdm(range(int(360/m1))):
             for link in links:
                 if len(link.intersection(obstacle))!=0:
                     intersect=1
-                    plt.plot(theta1*m1,theta2*m2,'ko')
+                    ay.plot(theta1*m1,theta2*m2,'ko')
                     points.append((theta1*m1,theta2*m2))
                     pass
                 pass
