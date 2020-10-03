@@ -23,7 +23,9 @@ if __name__ == "__main__":
     t2=math.radians(float(input("\nEnter its angle (degrees) wrt the previous link: ")))
 
     x,y=plot(a0,t0,a1,t1,a2,t2)
-
+    print("\nPoint 0 is: (0,0)")
+    print("\nPoint 1 is: ("+str(round((x[0]),3))+","+str(round((y[0]),3))+")")
+    print("\nPoint 2 is: ("+str(round((x[0]+x[1]),3))+","+str(round((y[0]+y[1]),3))+")")
     print("\nFinal position is: ("+str(round((x[0]+x[1]+x[2]),3))+","+str(round((y[0]+y[1]+y[2]),3))+")")
 
     plt.show()

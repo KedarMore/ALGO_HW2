@@ -51,20 +51,22 @@ for i in range(noofobstacles):
     poly=Polygon(*inside)
     obstacles.append(poly)
     coor=np.transpose(coor)
+    ax.plot(coor[0],coor[1])
     ax.fill(coor[0],coor[1])
     pass
 obstacles=tuple(obstacles)
-
+plt.title("Obstacles")
 print(obstacles)
 
 ay=plt.subplot(1,2,2)
 p0=(0,0)
-m1=20
-m2=20
-points=[]
-for theta1 in tqdm(range(int(360/m1))):
+m1=30
+m2=30
+pointsx=[]
+pointsy=[]
+for theta1 in tqdm(range(int(360/m1)+1)):
     # print(theta1)
-    for theta2 in range(int(360/m2)):
+    for theta2 in tqdm(range(int(360/m2)+1)):
         p1=((a0*(math.cos(math.radians(theta1*m1)))),
             (a0*(math.sin(math.radians(theta1*m1)))))
         p2=((a0*(math.cos(math.radians(theta1*m1)))+a1*(math.cos(math.radians(theta1*m1)+math.radians(theta2*m2)))),
@@ -76,12 +78,35 @@ for theta1 in tqdm(range(int(360/m1))):
             for link in links:
                 if len(link.intersection(obstacle))!=0:
                     intersect=1
-                    ay.plot(theta1*m1,theta2*m2,'ko')
-                    points.append((theta1*m1,theta2*m2))
+                    # ay.plot(theta1*m1,theta2*m2,'ko')
+                    pointsx.append(theta1*m1)
+                    pointsy.append(theta2*m2)
                     pass
                 pass
             pass
         pass
     pass
+# pointsx()
+for x in range(len(pointsx)-1):
+    dist=math.sqrt((pointsx[x]-pointsx[x+1])**2+(pointsy[x]-pointsy[x+1])**2)
+    if dist==int(m1):
+        ay.plot((pointsx[x],pointsx[x+1]),(pointsy[x],pointsy[x+1]),'k-')
+        pass
+    pass
+new=sorted(zip(pointsy,pointsx))
+points=np.array(new)
 # print(points)
+points=np.transpose(points)
+pointsx=points[1]
+pointsy=points[0]
+for x in range(len(pointsx)-1):
+    dist=math.sqrt((pointsx[x]-pointsx[x+1])**2+(pointsy[x]-pointsy[x+1])**2)
+    if dist==int(m1):
+        ay.plot((pointsx[x],pointsx[x+1]),(pointsy[x],pointsy[x+1]),'k-')
+        pass
+    pass
+ay.plot(pointsx,pointsy,'ko')
+plt.xlim(0,360)
+plt.ylim(0,360)
+plt.title("C-Space")
 plt.show()

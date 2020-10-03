@@ -76,5 +76,8 @@ if __name__ == "__main__":
     # w=rotate(v,np.transpose(w),20*0.0174)
     final=Cspace(v,w)
     plt.fill(final[0],final[1])
+    plt.xlabel("X axis of Workspace")
+    plt.ylabel("Y axis of Workspace")
+    plt.title("C-space for the Robot translating in 2D space")
     plt.show()
     # print(leastY(((1,2),(-1,3),(3,-2))))

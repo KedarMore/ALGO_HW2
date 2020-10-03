@@ -28,20 +28,8 @@ def rotate(obstacle,robot,angle):
         (0,0,1)]
     # robot=T2*R*T1*robot
     robot=np.matmul(T2,np.matmul(R,np.matmul(T1,robot)))
-    print(robot)
     # robot=np.matmul(R,robot)
     # robot=mirror(centroid,robot) #mirror
-    # dist=[]
-    # for i in range(len(robot)):
-    #     dist.append(math.sqrt((robot[0][i])**2 + (robot[1][i])**2))
-    # print(dist)
-    # mindist=min(dist)
-    # ind=dist.index(mindist)
-    # T=[(1,0,-robot[0][ind]),
-    #    (0,1,-robot[1][ind]),
-    #    (0,0,1)]
-    # robot=np.matmul(T,robot)
-    # print(robot)
     return robot
 
 def mirror(centroid,robot):
@@ -63,20 +51,6 @@ def mirror(centroid,robot):
     ans=np.fliplr(ans)
     return ans
 
-# zoff=1
-# v=np.array(((0,0),(1,2),(0,2)))
-# w=np.array(((-1,-2),(0,-2),(0,0)))
-# v=np.vstack((v,v[0]))
-# w=np.vstack((w,w[0]))
-# fig = plt.figure()
-# ax = fig.add_subplot(111, projection='3d')
-# for i in range(360):
-#     l=Cspace(v,w)
-#     z=(np.ones((len(l[0]))))*zoff
-#     zoff=zoff+0.1
-#     ax.plot_trisurf(l[0],l[1],z)
-# plt.show()
-
 if __name__ == "__main__":
     zoff=1
     v=np.array(((0,0),(1,2),(0,2))) #obstacle
@@ -84,20 +58,25 @@ if __name__ == "__main__":
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 
-    for angle in range(360):
+    m=1
+    for angle in range(int(360/m)+1):
+        # print("Ploting C-sapce for robot orientation "+str(angle*m))
         w=np.array(((-1,-2),(0,-2),(0,0))) #robot intial
         # w=np.array(((-1,0),(-1,-2),(0,0)))
         w=np.vstack((w,w[0]))
         w=np.hstack((w,np.ones((len(w),1)))) #add column
 
-        w=rotate(v,np.transpose(w),np.radians(angle)) #rotate
+        w=rotate(v,np.transpose(w),np.radians(angle*m)) #rotate
         # print(np.transpose(w))
         w=leastY(np.transpose(w)) #roll
         l=Cspace(v,w)
-        # print(l)
         z=(np.ones((len(l[0]))))*zoff
-        zoff=zoff+1
-        ax.plot_trisurf(l[0],l[1],z,alpha=0.1,color='black')
+        zoff=zoff+m
+        ax.plot_trisurf(l[0],l[1],z,alpha=0.5,color='black')
+    ax.set_xlabel("X axis of Workspace")
+    ax.set_ylabel("Y axis of Workspace")
+    ax.set_zlabel("Orientation of robot")
+    plt.title("C-space for the Robot translating and rotating in 2D space")
     plt.show()
     # print(mirror((-1,-2),np.array(((0,0),(-1,0),(-1,-2)))))
     pass
