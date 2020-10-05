@@ -1,11 +1,10 @@
 import math
 import matplotlib.pyplot as plt
 import numpy as np
-# from threedplot import rotate
 
 def leastY(listofpoints):
     """
-    docstring
+    returns the list of points starting with the point with least y coordinate
     """
     checkallx=[]
     for i in listofpoints:
@@ -23,7 +22,7 @@ def leastY(listofpoints):
 
 def Cspace(obstacle,robot):
     """
-    docstring
+    implements an algorithm for minkowski addition
     """
     i=0
     j=0
@@ -48,8 +47,6 @@ def Cspace(obstacle,robot):
         if anglew<0:
             anglew=360+anglew
             pass
-        # print("angle= ")
-        # print(anglev,anglew)
         if anglev<anglew:
             i=i+1
             pass
@@ -61,23 +58,16 @@ def Cspace(obstacle,robot):
             j=j+1
             pass
         pass
-    # print(finalx,finaly)
-    # plt.fill(finalx,finaly)
-    # plt.show()
     return np.vstack((finalx,finaly))
 
 if __name__ == "__main__":
     v=np.array(((0,0),(1,2),(0,2)))
     w=np.array(((-1,-2),(0,-2),(0,0)))
-    # w=np.array(((-2,-3),(-1,-3),(-1,-1)))
     v=np.vstack((v,v[0]))
     w=np.vstack((w,w[0]))
-    # w=np.hstack((w,np.ones((len(w),1))))
-    # w=rotate(v,np.transpose(w),20*0.0174)
     final=Cspace(v,w)
     plt.fill(final[0],final[1])
     plt.xlabel("X axis of Workspace")
     plt.ylabel("Y axis of Workspace")
     plt.title("C-space for the Robot translating in 2D space")
     plt.show()
-    # print(leastY(((1,2),(-1,3),(3,-2))))

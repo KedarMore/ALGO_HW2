@@ -1,16 +1,11 @@
-# theta1 is wrt ground
-# theta2 is wrt a1
-# a0 is length of first link
-# a1 is length of second link
-
 from sympy import Point, Polygon, plot_implicit
 import math
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 import numpy as np
 
-a0=1
-a1=1
+a0=float(imput("\nEnter the Length of first link: "))
+a1=float(imput("\nEnter the Length of second link: "))
 
 # obstacles=(Polygon((0.25, 0.25), (0, 0.75), (-0.25, 0.25)),)
 
@@ -28,8 +23,6 @@ for i in range(noofobstacles):
     vertex=int(input("\nNumber of Vertices on obstacle "+str(i+1)+"?"))
     for j in range(vertex):
         v2=[]
-        # v[i][j][0]=float(input("\nx Coordinates of vertex "+str(j+1)+"?"))
-        # v[i][j][1]=float(input("\ny Coordinates of vertex "+str(j+1)+"?"))
         v2.append(float(input("\nx Coordinates of vertex "+str(j+1)+"?")))
         v2.append(float(input("\ny Coordinates of vertex "+str(j+1)+"?")))
         v1.append(v2)
@@ -56,6 +49,8 @@ for i in range(noofobstacles):
     pass
 obstacles=tuple(obstacles)
 plt.title("Obstacles")
+plt.xlabel("X")
+plt.ylabel("Y")
 print(obstacles)
 
 ay=plt.subplot(1,2,2)
@@ -109,4 +104,6 @@ ay.plot(pointsx,pointsy,'ko')
 plt.xlim(0,360)
 plt.ylim(0,360)
 plt.title("C-Space")
+plt.xlabel("Theta 1")
+plt.ylabel("Theta 2")
 plt.show()
