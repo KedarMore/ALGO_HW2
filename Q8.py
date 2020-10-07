@@ -58,12 +58,12 @@ def print_input():
     return lines, obstacles
 
 if __name__ == "__main__":
-    # lines,obstacles=print_input()
+    lines,obstacles=print_input()
     m1=5
     m2=5
-    lines=[1,1]
+    # lines=[1,1]
     # obstacles=[[[0.25, 0.25], [0, 0.75], [-0.25, 0.25]]]
-    obstacles=[[[-0.25, 1.1],[-0.25, 2], [0.25, 2], [0.25, 1.1]],[[-2, -2], [-2, -1.8], [2, -1.8], [2,-2]]]
+    # obstacles=[[[-0.25, 1.1],[-0.25, 2], [0.25, 2], [0.25, 1.1]],[[-2, -2], [-2, -1.8], [2, -1.8], [2,-2]]]
     # obstacles=[[[-0.25, 1.1], [-0.25, 2], [0.25, 2], [0.25, 1.1]],[[-2, -0.5], [-2, -0.3], [2, -0.3], [2,-0.5]]]
     points=np.array([0,0])
     scatx=np.array([])
@@ -114,14 +114,14 @@ if __name__ == "__main__":
     ax=plt.subplot(1,2,1)
     plt.title("Obstacles")
     plt.xlabel("X")
-    plt.xlabel("Y")
+    plt.ylabel("Y")
     for i in obstacles:
         ax.fill(np.transpose(i)[0],np.transpose(i)[1],color='blue')
         pass
     ay=plt.subplot(1,2,2)
     plt.title("C-Space")
     plt.xlabel("Theta 1")
-    plt.xlabel("Theta 2")
+    plt.ylabel("Theta 2")
     ay.scatter(scatx,scaty,s=90,color='blue')
     plt.xlim(0,360)
     plt.ylim(0,360)

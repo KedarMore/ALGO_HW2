@@ -14,8 +14,7 @@ def rotate(obstacle,robot,angle):
         xtotal=xtotal+robot[0][i]
         ytotal=ytotal+robot[1][i]
         pass
-    # centroid=(-0.5,-1)
-    centroid=(0,0)
+    centroid=(-0.5,-1)
     T1=[(1,0,-centroid[0]),
         (0,1,-centroid[1]),
         (0,0,1)]
@@ -52,7 +51,7 @@ if __name__ == "__main__":
     v=np.vstack((v,v[0]))
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    m=1
+    m=10
     for angle in range(int(360/m)+1):
         w=np.array(((-1,-2),(0,-2),(0,0))) #robot intial
         w=np.vstack((w,w[0]))
@@ -62,7 +61,7 @@ if __name__ == "__main__":
         l=Cspace(v,w)
         z=(np.ones((len(l[0]))))*zoff
         zoff=zoff+m
-        ax.plot_trisurf(l[0],l[1],z,alpha=0.1,color='k')
+        ax.plot_trisurf(l[0],l[1],z,alpha=0.5,color='k')
     ax.set_xlabel("X axis of Workspace")
     ax.set_ylabel("Y axis of Workspace")
     ax.set_zlabel("Orientation of robot")
